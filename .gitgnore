@@ -1,0 +1,14 @@
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.env
+.pytest_cache/
+.coverage
+htmlcov/
+# Arquivos temporários de editores
+.vscode/
+.idea/
+*.swp
+# Resultados temporários
+results/raw/*.tmp
