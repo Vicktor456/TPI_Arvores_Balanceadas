@@ -113,3 +113,24 @@ class ArvoreAVL:
             return self._rotacao_esquerda(no), inserido
 
         return no, inserido
+
+def buscar(self, matricula: str) -> Aluno | None:
+    """
+    Busca um aluno pela matrícula.
+
+    Retorna o objeto Aluno caso encontre.
+    Retorna None caso a matrícula não exista.
+    """
+    no_atual = self.raiz
+
+    while no_atual is not None:
+        if matricula == no_atual.aluno.matricula:
+            return no_atual.aluno
+
+        if matricula < no_atual.aluno.matricula:
+            no_atual = no_atual.esquerda
+        else:
+            no_atual = no_atual.direita
+
+    return None
+    
