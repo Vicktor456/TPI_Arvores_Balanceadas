@@ -233,3 +233,18 @@ class ArvoreAVL:
             no_atual = no_atual.esquerda
 
         return no_atual.aluno
+
+    def obter_maior(self) -> Aluno | None:
+        """
+        Retorna o aluno com a maior matrícula da árvore.
+        Retorna None se a árvore estiver vazia.
+        """
+        if self.raiz is None:
+            return None
+
+        no_atual = self.raiz
+
+        while no_atual.direita is not None:
+            no_atual = no_atual.direita
+
+        return no_atual.aluno
