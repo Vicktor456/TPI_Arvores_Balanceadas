@@ -216,4 +216,20 @@ class ArvoreAVL:
         while atual.esquerda is not None:
             atual = atual.esquerda
 
-        return atual  
+        return atual
+
+    def obter_menor(self) -> Aluno | None:
+        """
+        Retorna o aluno com a menor matrícula da árvore.
+
+        Retorna None se a árvore estiver vazia.
+        """
+        if self.raiz is None:
+            return None
+
+        no_atual = self.raiz
+
+        while no_atual.esquerda is not None:
+            no_atual = no_atual.esquerda
+
+        return no_atual.aluno
