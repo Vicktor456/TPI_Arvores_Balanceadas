@@ -298,3 +298,9 @@ class ArvoreAVL:
         Uma árvore com apenas a raiz possui altura 1.
         """
         return self._altura(self.raiz)
+
+    def obter_quantidade_nos(self) -> int:
+        """
+        Retorna a quantidade atual de alunos armazenados na árvore.
+        """
+        return self.quantidade_nos
