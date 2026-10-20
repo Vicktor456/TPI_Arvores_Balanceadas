@@ -289,3 +289,12 @@ class ArvoreAVL:
             self._pos_ordem(no.esquerda, alunos)  # Esquerda
             self._pos_ordem(no.direita, alunos)   # Direita
             alunos.append(no.aluno)               # Raiz
+
+    def obter_altura(self) -> int:
+        """
+        Retorna a altura atual da árvore.
+
+        Retorna 0 se a árvore estiver vazia.
+        Uma árvore com apenas a raiz possui altura 1.
+        """
+        return self._altura(self.raiz)
