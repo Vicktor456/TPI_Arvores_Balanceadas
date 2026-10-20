@@ -114,23 +114,106 @@ class ArvoreAVL:
 
         return no, inserido
 
-def buscar(self, matricula: str) -> Aluno | None:
-    """
-    Busca um aluno pela matrícula.
+    def buscar(self, matricula: str) -> Aluno | None:
+        """
+        Busca um aluno pela matrícula.
 
-    Retorna o objeto Aluno caso encontre.
-    Retorna None caso a matrícula não exista.
-    """
-    no_atual = self.raiz
+        Retorna o objeto Aluno caso encontre.
+        Retorna None caso a matrícula não exista.
+        """
+        no_atual = self.raiz
 
-    while no_atual is not None:
-        if matricula == no_atual.aluno.matricula:
-            return no_atual.aluno
+        while no_atual is not None:
+            if matricula == no_atual.aluno.matricula:
+                return no_atual.aluno
 
-        if matricula < no_atual.aluno.matricula:
-            no_atual = no_atual.esquerda
+            if matricula < no_atual.aluno.matricula:
+                no_atual = no_atual.esquerda
+            else:
+                no_atual = no_atual.direita
+
+        return None
+
+    def remover(self, matricula: str) -> bool:
+        """
+        Remove um aluno pela matrícula.
+
+        Retorna True se removeu.
+        Retorna False se a matrícula não existir.
+        """
+        self.raiz, removido = self._remover(self.raiz, matricula)
+
+        if removido:
+            self.quantidade_nos -= 1
+
+        return removido
+
+    def _remover(
+        self,
+        no: Optional[NoAVL],
+        matricula: str
+    ) -> tuple[Optional[NoAVL], bool]:
+
+        if no is None:
+            return None, False
+
+        if matricula < no.aluno.matricula:
+            no.esquerda, removido = self._remover(no.esquerda, matricula)
+
+        elif matricula > no.aluno.matricula:
+            no.direita, removido = self._remover(no.direita, matricula)
+
         else:
-            no_atual = no_atual.direita
+            removido = True
 
-    return None
-    
+            # Caso 1: nó sem filho à esquerda
+            if no.esquerda is None:
+                return no.direita, removido
+
+            # Caso 2: nó sem filho à direita
+            if no.direita is None:
+                return no.esquerda, removido
+
+            # Caso 3: nó com dois filhos.
+            # Substitui pelo sucessor: menor nó da subárvore direita.
+            sucessor = self._menor_no(no.direita)
+            no.aluno = sucessor.aluno
+
+            # Remove o sucessor sem alterar quantidade_nos novamente.
+            no.direita, _ = self._remover(
+                no.direita,
+                sucessor.aluno.matricula
+            )
+
+        # Atualiza a altura e verifica o balanceamento.
+        self._atualizar_altura(no)
+        balanceamento = self._fator_balanceamento(no)
+
+        # Caso LL
+        if balanceamento > 1 and self._fator_balanceamento(no.esquerda) >= 0:
+            return self._rotacao_direita(no), removido
+
+        # Caso LR
+        if balanceamento > 1 and self._fator_balanceamento(no.esquerda) < 0:
+            no.esquerda = self._rotacao_esquerda(no.esquerda)
+            return self._rotacao_direita(no), removido
+
+        # Caso RR
+        if balanceamento < -1 and self._fator_balanceamento(no.direita) <= 0:
+            return self._rotacao_esquerda(no), removido
+
+        # Caso RL
+        if balanceamento < -1 and self._fator_balanceamento(no.direita) > 0:
+            no.direita = self._rotacao_direita(no.direita)
+            return self._rotacao_esquerda(no), removido
+
+        return no, removido
+
+    def _menor_no(self, no: NoAVL) -> NoAVL:
+        """Retorna o nó de menor matrícula a partir de um nó."""
+        atual = no
+
+        while atual.esquerda is not None:
+            atual = atual.esquerda
+
+        return atual  
