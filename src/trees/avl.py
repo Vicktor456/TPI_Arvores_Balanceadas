@@ -304,3 +304,60 @@ class ArvoreAVL:
         Retorna a quantidade atual de alunos armazenados na árvore.
         """
         return self.quantidade_nos
+
+    def validar_avl(self) -> bool:
+        """
+        Verifica se a árvore respeita:
+        - a propriedade de busca binária;
+        - |fator de balanceamento| <= 1 em todos os nós;
+        - a altura armazenada em cada nó.
+        """
+        valida, _ = self._validar_avl(self.raiz, None, None)
+        return valida
+    
+    def _validar_avl(
+        self,
+        no: Optional[NoAVL],
+        limite_inferior: Optional[str],
+        limite_superior: Optional[str]
+    ) -> tuple[bool, int]:
+
+        if no is None:
+            return True, 0
+
+        matricula = no.aluno.matricula
+
+        # Confirma a propriedade de árvore binária de busca.
+        if limite_inferior is not None and matricula <= limite_inferior:
+            return False, 0
+
+        if limite_superior is not None and matricula >= limite_superior:
+            return False, 0
+
+        esquerda_valida, altura_esquerda = self._validar_avl(
+            no.esquerda,
+            limite_inferior,
+            matricula
+        )
+
+        direita_valida, altura_direita = self._validar_avl(
+            no.direita,
+            matricula,
+            limite_superior
+        )
+
+        altura_calculada = 1 + max(altura_esquerda, altura_direita)
+        fator_balanceamento = altura_esquerda - altura_direita
+
+        # Confirma altura correta e |FB| <= 1.
+        altura_correta = no.altura == altura_calculada
+        balanceada = abs(fator_balanceamento) <= 1
+
+        valida = (
+            esquerda_valida
+            and direita_valida
+            and altura_correta
+            and balanceada
+        )
+
+        return valida, altura_calculada
