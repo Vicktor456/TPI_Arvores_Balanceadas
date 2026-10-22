@@ -379,3 +379,42 @@ class ArvoreRubroNegra:
 	        no_atual = no_atual.direita
 	
 	    return no_atual.aluno
+
+	def pre_ordem(self) -> list[Aluno]:
+	    """Retorna os alunos no caminhamento pré-ordem."""
+	    alunos = []
+	    self._pre_ordem(self.raiz, alunos)
+	    return alunos
+	
+	
+	def _pre_ordem(self, no: NoRubroNegra, alunos: list[Aluno]) -> None:
+	    if no != self.NIL:
+	        alunos.append(no.aluno)              # Raiz
+	        self._pre_ordem(no.esquerda, alunos) # Esquerda
+	        self._pre_ordem(no.direita, alunos)  # Direita
+	
+	def em_ordem(self) -> list[Aluno]:
+	    """Retorna os alunos no caminhamento em ordem crescente de matrícula."""
+	    alunos = []
+	    self._em_ordem(self.raiz, alunos)
+	    return alunos
+	
+	
+	def _em_ordem(self, no: NoRubroNegra, alunos: list[Aluno]) -> None:
+	    if no != self.NIL:
+	        self._em_ordem(no.esquerda, alunos)  # Esquerda
+	        alunos.append(no.aluno)              # Raiz
+	        self._em_ordem(no.direita, alunos)   # Direita
+	
+	def pos_ordem(self) -> list[Aluno]:
+	    """Retorna os alunos no caminhamento pós-ordem."""
+	    alunos = []
+	    self._pos_ordem(self.raiz, alunos)
+	    return alunos
+	
+	
+	def _pos_ordem(self, no: NoRubroNegra, alunos: list[Aluno]) -> None:
+	    if no != self.NIL:
+	        self._pos_ordem(no.esquerda, alunos)  # Esquerda
+	        self._pos_ordem(no.direita, alunos)   # Direita
+	        alunos.append(no.aluno)               # Raiz
