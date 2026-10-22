@@ -429,9 +429,14 @@ class ArvoreRubroNegra:
 	    return self._altura(self.raiz)
 	
 	def _altura(self, no: NoRubroNegra) -> int:
-	    """Calcula a altura de uma subárvore ignorando folhas NIL."""
-	    if no == self.NIL:
-	        return 0
+    """Calcula a altura da subárvore, ignorando folhas NIL."""
+    if no == self.NIL:
+        return 0
+
+    return 1 + max(
+        self._altura(no.esquerda),
+        self._altura(no.direita)
+    )
 
 	def obter_quantidade_nos(self) -> int:
 	    """
