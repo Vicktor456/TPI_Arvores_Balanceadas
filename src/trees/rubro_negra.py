@@ -186,3 +186,23 @@ class ArvoreRubroNegra:
 
         # A raiz deve ser sempre preta.
         self._recolorir(self.raiz, PRETO)
+
+	def buscar(self, matricula: str) -> Aluno | None:
+	    """
+	    Busca um aluno pela matrícula.
+	
+	    Retorna o objeto Aluno caso encontre.
+	    Retorna None se a matrícula não existir.
+	    """
+	    atual = self.raiz
+	
+	    while atual != self.NIL:
+	        if matricula == atual.aluno.matricula:
+	            return atual.aluno
+	
+	        if matricula < atual.aluno.matricula:
+	            atual = atual.esquerda
+	        else:
+	            atual = atual.direita
+	
+	    return None
