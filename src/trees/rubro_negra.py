@@ -418,3 +418,22 @@ class ArvoreRubroNegra:
 	        self._pos_ordem(no.esquerda, alunos)  # Esquerda
 	        self._pos_ordem(no.direita, alunos)   # Direita
 	        alunos.append(no.aluno)               # Raiz
+
+	def obter_altura(self) -> int:
+	    """
+	    Retorna a altura atual da árvore.
+	
+	    Retorna 0 se a árvore estiver vazia.
+	    Uma árvore com apenas a raiz possui altura 1.
+	    """
+	    return self._altura(self.raiz)
+	
+	def _altura(self, no: NoRubroNegra) -> int:
+	    """Calcula a altura de uma subárvore ignorando folhas NIL."""
+	    if no == self.NIL:
+	        return 0
+	
+	    return 1 + max(
+	        self._altura(no.esquerda),
+	        self._altura(no.direita)
+	    )
