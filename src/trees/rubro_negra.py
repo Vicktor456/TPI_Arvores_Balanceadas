@@ -266,92 +266,92 @@ class ArvoreRubroNegra:
 	    self.quantidade_nos -= 1
 	    return True
 	    
-	    def _transplantar(
-		    self,
-		    no_antigo: NoRubroNegra,
-		    no_novo: NoRubroNegra
-		) -> None:
-		    """Substitui uma subárvore por outra."""
-		    if no_antigo.pai == self.NIL:
-		        self.raiz = no_novo
+	def _transplantar(
+		self,
+		no_antigo: NoRubroNegra,
+		no_novo: NoRubroNegra
+	) -> None:
+		"""Substitui uma subárvore por outra."""
+		if no_antigo.pai == self.NIL:
+			self.raiz = no_novo
+	
+		elif no_antigo == no_antigo.pai.esquerda:
+			no_antigo.pai.esquerda = no_novo
+	
+		else:
+			no_antigo.pai.direita = no_novo
+	
+		no_novo.pai = no_antigo.pai
 		
-		    elif no_antigo == no_antigo.pai.esquerda:
-		        no_antigo.pai.esquerda = no_novo
+	def _menor_no(self, no: NoRubroNegra) -> NoRubroNegra:
+		"""Retorna o nó com a menor matrícula da subárvore."""
+		while no.esquerda != self.NIL:
+			no = no.esquerda
+	
+		return no
 		
-		    else:
-		        no_antigo.pai.direita = no_novo
-		
-		    no_novo.pai = no_antigo.pai
-		    
-		def _menor_no(self, no: NoRubroNegra) -> NoRubroNegra:
-		    """Retorna o nó com a menor matrícula da subárvore."""
-		    while no.esquerda != self.NIL:
-		        no = no.esquerda
-		
-		    return no
-		    
-		def _corrigir_remocao(self, no: NoRubroNegra) -> None:
-		    """Restaura as propriedades Rubro-Negras após uma remoção."""
-		    while no != self.raiz and no.cor == PRETO:
-		
-		        if no == no.pai.esquerda:
-		            irmao = no.pai.direita
-		
-		            # Caso 1: irmão vermelho.
-		            if irmao.cor == VERMELHO:
-		                self._recolorir(irmao, PRETO)
-		                self._recolorir(no.pai, VERMELHO)
-		                self._rotacao_esquerda(no.pai)
-		                irmao = no.pai.direita
-		
-		            # Caso 2: irmão preto com filhos pretos.
-		            if irmao.esquerda.cor == PRETO and irmao.direita.cor == PRETO:
-		                self._recolorir(irmao, VERMELHO)
-		                no = no.pai
-		
-		            else:
-		                # Caso 3: filho direito do irmão é preto.
-		                if irmao.direita.cor == PRETO:
-		                    self._recolorir(irmao.esquerda, PRETO)
-		                    self._recolorir(irmao, VERMELHO)
-		                    self._rotacao_direita(irmao)
-		                    irmao = no.pai.direita
-		
-		                # Caso 4: filho direito do irmão é vermelho.
-		                self._recolorir(irmao, no.pai.cor)
-		                self._recolorir(no.pai, PRETO)
-		                self._recolorir(irmao.direita, PRETO)
-		                self._rotacao_esquerda(no.pai)
-		                no = self.raiz
-		
-		        else:
-		            # Casos espelhados: no está à direita.
-		            irmao = no.pai.esquerda
-		
-		            if irmao.cor == VERMELHO:
-		                self._recolorir(irmao, PRETO)
-		                self._recolorir(no.pai, VERMELHO)
-		                self._rotacao_direita(no.pai)
-		                irmao = no.pai.esquerda
-		
-		            if irmao.direita.cor == PRETO and irmao.esquerda.cor == PRETO:
-		                self._recolorir(irmao, VERMELHO)
-		                no = no.pai
-		
-		            else:
-		                if irmao.esquerda.cor == PRETO:
-		                    self._recolorir(irmao.direita, PRETO)
-		                    self._recolorir(irmao, VERMELHO)
-		                    self._rotacao_esquerda(irmao)
-		                    irmao = no.pai.esquerda
-		
-		                self._recolorir(irmao, no.pai.cor)
-		                self._recolorir(no.pai, PRETO)
-		                self._recolorir(irmao.esquerda, PRETO)
-		                self._rotacao_direita(no.pai)
-		                no = self.raiz
-		
-		    self._recolorir(no, PRETO)
+	def _corrigir_remocao(self, no: NoRubroNegra) -> None:
+		"""Restaura as propriedades Rubro-Negras após uma remoção."""
+		while no != self.raiz and no.cor == PRETO:
+	
+			if no == no.pai.esquerda:
+				irmao = no.pai.direita
+	
+				# Caso 1: irmão vermelho.
+				if irmao.cor == VERMELHO:
+					self._recolorir(irmao, PRETO)
+					self._recolorir(no.pai, VERMELHO)
+					self._rotacao_esquerda(no.pai)
+					irmao = no.pai.direita
+	
+				# Caso 2: irmão preto com filhos pretos.
+				if irmao.esquerda.cor == PRETO and irmao.direita.cor == PRETO:
+					self._recolorir(irmao, VERMELHO)
+					no = no.pai
+	
+				else:
+					# Caso 3: filho direito do irmão é preto.
+					if irmao.direita.cor == PRETO:
+						self._recolorir(irmao.esquerda, PRETO)
+						self._recolorir(irmao, VERMELHO)
+						self._rotacao_direita(irmao)
+						irmao = no.pai.direita
+	
+					# Caso 4: filho direito do irmão é vermelho.
+					self._recolorir(irmao, no.pai.cor)
+					self._recolorir(no.pai, PRETO)
+					self._recolorir(irmao.direita, PRETO)
+					self._rotacao_esquerda(no.pai)
+					no = self.raiz
+	
+			else:
+				# Casos espelhados: no está à direita.
+				irmao = no.pai.esquerda
+	
+				if irmao.cor == VERMELHO:
+					self._recolorir(irmao, PRETO)
+					self._recolorir(no.pai, VERMELHO)
+					self._rotacao_direita(no.pai)
+					irmao = no.pai.esquerda
+	
+				if irmao.direita.cor == PRETO and irmao.esquerda.cor == PRETO:
+					self._recolorir(irmao, VERMELHO)
+					no = no.pai
+	
+				else:
+					if irmao.esquerda.cor == PRETO:
+						self._recolorir(irmao.direita, PRETO)
+						self._recolorir(irmao, VERMELHO)
+						self._rotacao_esquerda(irmao)
+						irmao = no.pai.esquerda
+	
+					self._recolorir(irmao, no.pai.cor)
+					self._recolorir(no.pai, PRETO)
+					self._recolorir(irmao.esquerda, PRETO)
+					self._rotacao_direita(no.pai)
+					no = self.raiz
+	
+		self._recolorir(no, PRETO)
 
 	def obter_menor(self) -> Aluno | None:
 	    """
