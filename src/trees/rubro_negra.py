@@ -458,3 +458,58 @@ class ArvoreRubroNegra:
 
         valida, _ = self._validar_no(self.raiz, None, None)
         return valida
+
+
+    def _validar_no(
+        self,
+        no: NoRubroNegra,
+        limite_inferior: Optional[str],
+        limite_superior: Optional[str]
+    ) -> tuple[bool, int]:
+        """
+        Retorna:
+        - se a subárvore é válida;
+        - sua altura negra.
+        """
+        # Cada folha NIL é preta e contribui com 1 para a altura negra.
+        if no == self.NIL:
+            return True, 1
+
+        matricula = no.aluno.matricula
+
+        # Propriedade de busca binária.
+        if limite_inferior is not None and matricula <= limite_inferior:
+            return False, 0
+
+        if limite_superior is not None and matricula >= limite_superior:
+            return False, 0
+
+        # Um nó vermelho não pode possuir filho vermelho.
+        if no.cor == VERMELHO:
+            if no.esquerda.cor == VERMELHO or no.direita.cor == VERMELHO:
+                return False, 0
+
+        esquerda_valida, altura_negra_esquerda = self._validar_no(
+            no.esquerda,
+            limite_inferior,
+            matricula
+        )
+
+        direita_valida, altura_negra_direita = self._validar_no(
+            no.direita,
+            matricula,
+            limite_superior
+        )
+
+        # Todos os caminhos até NIL devem ter a mesma altura negra.
+        if altura_negra_esquerda != altura_negra_direita:
+            return False, 0
+
+        altura_negra_atual = altura_negra_esquerda
+
+        if no.cor == PRETO:
+            altura_negra_atual += 1
+
+        valida = esquerda_valida and direita_valida
+
+        return valida, altura_negra_atual
