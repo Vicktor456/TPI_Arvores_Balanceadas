@@ -259,7 +259,8 @@ class ArvoreRubroNegra:
 
             no_que_saiu.esquerda = no_removido.esquerda
             no_que_saiu.esquerda.pai = no_que_saiu
-            no_que_saiu.cor = no_removido.cor
+            
+            self._recolorir(no_que_saiu, no_removido.cor)
 
         # Só é necessário corrigir se um nó preto saiu.
         if cor_original == PRETO:
