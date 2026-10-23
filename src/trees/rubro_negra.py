@@ -8,10 +8,16 @@ PRETO = "PRETO"
 
 @dataclass
 class Aluno:
-    matricula: str
+    matricula: int
     nome: str
     curso: str
     periodo: int
+
+    def __post_init__(self) -> None:
+        if isinstance(self.matricula, bool) or not isinstance(self.matricula, int):
+            raise TypeError("A matrícula deve ser um número inteiro.")
+        if self.matricula <= 0:
+            raise ValueError("A matrícula deve ser um número positivo.")
 
 
 class NoRubroNegra:
@@ -39,14 +45,21 @@ class ArvoreRubroNegra:
         self.quantidade_nos = 0
         self.rotacoes = 0
         self.recoloracoes = 0
+        self.eventos_balanceamento: list[tuple] = []
 
     def _recolorir(self, no: NoRubroNegra, nova_cor: str) -> None:
         """Altera a cor de um nó real e contabiliza a recoloração."""
         if no != self.NIL and no.cor != nova_cor:
+            self.eventos_balanceamento.append(
+                ("recolorir", no.aluno.matricula, no.cor, nova_cor)
+            )
             no.cor = nova_cor
             self.recoloracoes += 1
 
     def _rotacao_esquerda(self, no_desbalanceado: NoRubroNegra) -> None:
+        self.eventos_balanceamento.append(
+            ("rotacao", "esquerda", no_desbalanceado.aluno.matricula)
+        )
         novo_pai = no_desbalanceado.direita
 
         no_desbalanceado.direita = novo_pai.esquerda
@@ -71,6 +84,9 @@ class ArvoreRubroNegra:
         self.rotacoes += 1
 
     def _rotacao_direita(self, no_desbalanceado: NoRubroNegra) -> None:
+        self.eventos_balanceamento.append(
+            ("rotacao", "direita", no_desbalanceado.aluno.matricula)
+        )
         novo_pai = no_desbalanceado.esquerda
 
         no_desbalanceado.esquerda = novo_pai.direita
@@ -101,6 +117,7 @@ class ArvoreRubroNegra:
         Retorna True se inseriu.
         Retorna False se a matrícula já existir.
         """
+        self.eventos_balanceamento = []
         pai = self.NIL
         atual = self.raiz
 
@@ -187,7 +204,7 @@ class ArvoreRubroNegra:
         # A raiz deve ser sempre preta.
         self._recolorir(self.raiz, PRETO)
 
-    def buscar(self, matricula: str) -> Aluno | None:
+    def buscar(self, matricula: int) -> Aluno | None:
         """
         Busca um aluno pela matrícula.
 
@@ -207,13 +224,14 @@ class ArvoreRubroNegra:
 
         return None
 
-    def remover(self, matricula: str) -> bool:
+    def remover(self, matricula: int) -> bool:
         """
         Remove um aluno pela matrícula.
 
         Retorna True se removeu.
         Retorna False se a matrícula não existir.
         """
+        self.eventos_balanceamento = []
         no_removido = self.raiz
 
         while no_removido != self.NIL:
@@ -463,8 +481,8 @@ class ArvoreRubroNegra:
     def _validar_no(
         self,
         no: NoRubroNegra,
-        limite_inferior: Optional[str],
-        limite_superior: Optional[str]
+        limite_inferior: Optional[int],
+        limite_superior: Optional[int]
     ) -> tuple[bool, int]:
         """
         Retorna:

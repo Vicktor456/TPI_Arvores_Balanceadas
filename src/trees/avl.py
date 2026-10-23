@@ -4,10 +4,16 @@ from typing import Optional
 
 @dataclass
 class Aluno:
-    matricula: str
+    matricula: int
     nome: str
     curso: str
     periodo: int
+
+    def __post_init__(self) -> None:
+        if isinstance(self.matricula, bool) or not isinstance(self.matricula, int):
+            raise TypeError("A matrícula deve ser um número inteiro.")
+        if self.matricula <= 0:
+            raise ValueError("A matrícula deve ser um número positivo.")
 
 
 class NoAVL:
@@ -23,6 +29,7 @@ class ArvoreAVL:
         self.raiz: Optional[NoAVL] = None
         self.quantidade_nos = 0
         self.rotacoes = 0
+        self.eventos_rotacao: list[tuple[str, int]] = []
 
     def _altura(self, no: Optional[NoAVL]) -> int:
         return no.altura if no else 0
@@ -40,6 +47,7 @@ class ArvoreAVL:
         return self._altura(no.esquerda) - self._altura(no.direita)
 
     def _rotacao_direita(self, no_desbalanceado: NoAVL) -> NoAVL:
+        self.eventos_rotacao.append(("direita", no_desbalanceado.aluno.matricula))
         novo_pai = no_desbalanceado.esquerda
         subarvore_transferida = novo_pai.direita
 
@@ -53,6 +61,7 @@ class ArvoreAVL:
         return novo_pai
 
     def _rotacao_esquerda(self, no_desbalanceado: NoAVL) -> NoAVL:
+        self.eventos_rotacao.append(("esquerda", no_desbalanceado.aluno.matricula))
         novo_pai = no_desbalanceado.direita
         subarvore_transferida = novo_pai.esquerda
 
@@ -71,6 +80,7 @@ class ArvoreAVL:
         Retorna True se inseriu.
         Retorna False se a matrícula já existir.
         """
+        self.eventos_rotacao = []
         self.raiz, inserido = self._inserir(self.raiz, aluno)
 
         if inserido:
@@ -114,7 +124,7 @@ class ArvoreAVL:
 
         return no, inserido
 
-    def buscar(self, matricula: str) -> Aluno | None:
+    def buscar(self, matricula: int) -> Aluno | None:
         """
         Busca um aluno pela matrícula.
 
@@ -134,13 +144,14 @@ class ArvoreAVL:
 
         return None
 
-    def remover(self, matricula: str) -> bool:
+    def remover(self, matricula: int) -> bool:
         """
         Remove um aluno pela matrícula.
 
         Retorna True se removeu.
         Retorna False se a matrícula não existir.
         """
+        self.eventos_rotacao = []
         self.raiz, removido = self._remover(self.raiz, matricula)
 
         if removido:
@@ -151,7 +162,7 @@ class ArvoreAVL:
     def _remover(
         self,
         no: Optional[NoAVL],
-        matricula: str
+        matricula: int
     ) -> tuple[Optional[NoAVL], bool]:
 
         if no is None:
@@ -318,8 +329,8 @@ class ArvoreAVL:
     def _validar_avl(
         self,
         no: Optional[NoAVL],
-        limite_inferior: Optional[str],
-        limite_superior: Optional[str]
+        limite_inferior: Optional[int],
+        limite_superior: Optional[int]
     ) -> tuple[bool, int]:
 
         if no is None:
