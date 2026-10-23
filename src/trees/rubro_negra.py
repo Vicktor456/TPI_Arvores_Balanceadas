@@ -1,24 +1,8 @@
-from dataclasses import dataclass
 from typing import Optional
-
+from src.models.aluno import Aluno
 
 VERMELHO = "VERMELHO"
 PRETO = "PRETO"
-
-
-@dataclass
-class Aluno:
-    matricula: int
-    nome: str
-    curso: str
-    periodo: int
-
-    def __post_init__(self) -> None:
-        if isinstance(self.matricula, bool) or not isinstance(self.matricula, int):
-            raise TypeError("A matrícula deve ser um número inteiro.")
-        if self.matricula <= 0:
-            raise ValueError("A matrícula deve ser um número positivo.")
-
 
 class NoRubroNegra:
     def __init__(
