@@ -443,3 +443,18 @@ class ArvoreRubroNegra:
         Retorna a quantidade atual de alunos armazenados na árvore.
         """
         return self.quantidade_nos
+        
+    def validar_rubro_negra(self) -> bool:
+    """
+    Verifica todas as propriedades da Árvore Rubro-Negra.
+    """
+    # Árvore vazia é válida.
+    if self.raiz == self.NIL:
+        return True
+
+    # A raiz deve ser preta.
+    if self.raiz.cor != PRETO:
+        return False
+
+    valida, _ = self._validar_no(self.raiz, None, None)
+    return valida
