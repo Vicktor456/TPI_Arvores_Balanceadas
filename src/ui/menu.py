@@ -14,6 +14,9 @@ from src.ui.rubro_negra_window import JanelaRubroNegra
 class MenuArvores:
     def __init__(self, janela: tk.Tk) -> None:
         self.janela = janela
+        self.avl = ArvoreAVL()
+        self.rubro_negra = ArvoreRubroNegra()
+        
         self.janela.title("Sistema Acadêmico - Árvores Balanceadas")
         self.janela.geometry("460x280")
         self.janela.resizable(False, False)
