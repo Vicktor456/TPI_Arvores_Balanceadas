@@ -109,6 +109,20 @@ class JanelaAVL:
         )
         self.botao_pos_ordem.pack(side=tk.LEFT, padx=6)
 
+        self.botao_validar = ttk.Button(
+            acoes_extras,
+            text="Validar AVL",
+            command=self.validar_arvore,
+        )
+        self.botao_validar.pack(side=tk.LEFT, padx=6)
+        
+        self.botao_estatisticas = ttk.Button(
+            acoes_extras,
+            text="Estatísticas",
+            command=self.mostrar_estatisticas,
+        )
+        self.botao_estatisticas.pack(side=tk.LEFT, padx=6)
+
         lista = ttk.LabelFrame(painel_operacoes, text="Alunos em ordem de matrícula", padding=8)
         lista.pack(fill=tk.BOTH, expand=True)
 
