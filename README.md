@@ -159,6 +159,14 @@ py -m src.services.gerar_relatorio
 
 Esse comando atualiza `testes/Relatorio_Experimentos.html`, que pode ser aberto pelo botão **Relatório HTML** na janela de resultados. Ele não altera o PDF formatado de entrega em `testes/Relatorio_Experimentos.pdf`.
 
+Para atualizar os gráficos SVG a partir do mesmo `resumo.csv`, execute:
+
+```powershell
+py -m src.services.gerar_graficos
+```
+
+Os gráficos de altura, rotações, recolorações, visitas médias e tempos são salvos em `testes/graficos`.
+
 ## Equipe
 
 - Davi Vitor Santos Mota
