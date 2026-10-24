@@ -8,7 +8,8 @@ from tkinter import messagebox, ttk
 if __package__ in (None, ""):
     sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
-from src.trees.rubro_negra import PRETO, VERMELHO, Aluno, ArvoreRubroNegra
+from src.models.aluno import Aluno
+from src.trees.rubro_negra import PRETO, VERMELHO, ArvoreRubroNegra
 
 
 class JanelaRubroNegra:
