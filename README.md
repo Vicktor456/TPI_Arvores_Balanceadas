@@ -112,18 +112,9 @@ src/
     └── rubro_negra_window.py # Operações e visualização da Rubro-Negra
 ```
 
-## Organização do trabalho
-
-Os experimentos comparativos devem inserir as mesmas sequências de matrículas nas duas estruturas e registrar, para cada cenário:
-
-- altura final;
-- rotações na inserção e na remoção;
-- recolorações da Rubro-Negra;
-- média de nós visitados durante buscas;
-- tempo total de inserção, busca e remoção.
-
-Os resultados brutos, tabelas, gráficos e a análise comparativa devem acompanhar a entrega final.
-
 ## Equipe
 
-- Adicione aqui os nomes dos integrantes.
+- Davi Vitor Santos Mota
+- Isabely Cristina Barbosa Beça
+- Thiago Silva dos Santos
+- Vicktor Eduardo Almeida Pinheiro
