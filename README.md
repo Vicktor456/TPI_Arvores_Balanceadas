@@ -103,7 +103,9 @@ As árvores permanecem armazenadas enquanto o programa estiver aberto. Ao fechar
 src/
 ├── models/
 │   └── aluno.py              # Modelo do registro Aluno
-├── services/\n│   └── experimentos.py       # Testes, medições e exportação de resultados\n├── trees/
+├── services/
+│   └── experimentos.py       # Testes, medições e exportação de resultados
+├── trees/
 │   ├── avl.py                # Implementação da Árvore AVL
 │   └── rubro_negra.py        # Implementação da Árvore Rubro-Negra
 └── ui/
