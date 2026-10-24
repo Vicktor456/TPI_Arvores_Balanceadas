@@ -990,6 +990,46 @@ class JanelaAVL:
             parent=self.janela,
         )
 
+    def validar_arvore(self) -> None:
+        if self.animando:
+            return
+    
+        if self.arvore.validar_avl():
+            mensagem = "A árvore AVL é válida."
+            self.rotulo_resultado.config(text=mensagem)
+    
+            messagebox.showinfo(
+                "Validação da AVL",
+                mensagem,
+                parent=self.janela,
+            )
+        else:
+            mensagem = "A árvore AVL possui erro de ordenação, altura ou balanceamento."
+            self.rotulo_resultado.config(text=mensagem)
+    
+            messagebox.showerror(
+                "Validação da AVL",
+                mensagem,
+                parent=self.janela,
+            )
+
+    def mostrar_estatisticas(self) -> None:
+        if self.animando:
+            return
+    
+        texto = (
+            "Estatísticas da Árvore AVL\n\n"
+            f"Quantidade de nós: {self.arvore.obter_quantidade_nos()}\n"
+            f"Altura atual: {self.arvore.obter_altura()}\n"
+            f"Rotações realizadas: {self.arvore.rotacoes}"
+        )
+    
+        messagebox.showinfo(
+            "Estatísticas da AVL",
+            texto,
+            parent=self.janela,
+        )
+
 def main() -> None:
     janela = tk.Tk()
     JanelaAVL(janela)
