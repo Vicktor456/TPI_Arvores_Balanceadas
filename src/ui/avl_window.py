@@ -450,16 +450,21 @@ class JanelaAVL:
     def atualizar_lista(self, atualizar_visualizacao: bool = True) -> None:
         for item in self.tabela.get_children():
             self.tabela.delete(item)
-
+    
         for aluno in self.arvore.em_ordem():
             self.tabela.insert(
                 "",
                 tk.END,
                 values=(aluno.matricula, aluno.nome, aluno.curso, aluno.periodo),
             )
-
+    
         quantidade = self.arvore.obter_quantidade_nos()
-        self.rotulo_contagem.config(text=f"Quantidade de alunos: {quantidade}")
+        altura = self.arvore.obter_altura()
+    
+        self.rotulo_contagem.config(
+            text=f"Quantidade: {quantidade} | Altura: {altura}"
+        )
+    
         if atualizar_visualizacao:
             self.atualizar_visualizacao_arvore()
 
