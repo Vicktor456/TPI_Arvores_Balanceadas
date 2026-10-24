@@ -4,7 +4,7 @@ import json
 import tkinter as tk
 import webbrowser
 from pathlib import Path
-from tkinter import ttk
+from tkinter import messagebox, ttk
 
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -351,3 +351,8 @@ class JanelaResultados:
         caminho = ROOT / "testes" / nome
         if caminho.is_file():
             webbrowser.open(caminho.resolve().as_uri())
+        else:
+            messagebox.showerror(
+                "Relatório não encontrado",
+                f"O arquivo {nome} não foi encontrado na pasta testes.",
+            )

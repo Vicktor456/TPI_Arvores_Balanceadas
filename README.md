@@ -121,13 +121,13 @@ O módulo de experimentos executa testes de regressão antes das medições, usa
 Na raiz do projeto, execute:
 
 ```powershell
-py -m src.services.experimentos --saida resultados
+py -m src.services.experimentos --saida testes/resultados
 ```
 
 Se necessário, use:
 
 ```powershell
-python -m src.services.experimentos --saida resultados
+python -m src.services.experimentos --saida testes/resultados
 ```
 
 Por padrão, o módulo usa os tamanhos 100, 1.000 e 10.000, cinco repetições e a semente `20261024`. A execução pode levar alguns minutos.
@@ -135,7 +135,7 @@ Por padrão, o módulo usa os tamanhos 100, 1.000 e 10.000, cinco repetições e
 Para alterar as repetições ou a semente:
 
 ```powershell
-py -m src.services.experimentos --saida resultados --repeticoes 3 --semente 20261024
+py -m src.services.experimentos --saida testes/resultados --repeticoes 3 --semente 20261024
 ```
 
 A pasta definida em `--saida` recebe:
@@ -150,6 +150,14 @@ A pasta definida em `--saida` recebe:
 | `metadados.json` | Semente, ambiente e parâmetros da execução. |
 
 Os cenários incluem inserções crescentes e aleatórias, buscas existentes e inexistentes e remoções de 10%, 30% e 50% dos registros.
+
+Para gerar ou atualizar o relatório HTML a partir dos resultados em `testes/resultados`, execute na raiz:
+
+```powershell
+py -m src.services.gerar_relatorio
+```
+
+Esse comando atualiza `testes/Relatorio_Experimentos.html`, que pode ser aberto pelo botão **Relatório HTML** na janela de resultados. Ele não altera o PDF formatado de entrega em `testes/Relatorio_Experimentos.pdf`.
 
 ## Equipe
 
