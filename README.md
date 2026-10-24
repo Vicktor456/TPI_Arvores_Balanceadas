@@ -103,7 +103,7 @@ As árvores permanecem armazenadas enquanto o programa estiver aberto. Ao fechar
 src/
 ├── models/
 │   └── aluno.py              # Modelo do registro Aluno
-├── trees/
+├── services/\n│   └── experimentos.py       # Testes, medições e exportação de resultados\n├── trees/
 │   ├── avl.py                # Implementação da Árvore AVL
 │   └── rubro_negra.py        # Implementação da Árvore Rubro-Negra
 └── ui/
@@ -111,6 +111,43 @@ src/
     ├── avl_window.py         # Operações e visualização da AVL
     └── rubro_negra_window.py # Operações e visualização da Rubro-Negra
 ```
+
+## Como executar os experimentos
+
+O módulo de experimentos executa testes de regressão antes das medições, usa sequências reproduzíveis e aplica os mesmos dados às duas árvores.
+
+Na raiz do projeto, execute:
+
+```powershell
+py -m src.services.experimentos --saida resultados
+```
+
+Se necessário, use:
+
+```powershell
+python -m src.services.experimentos --saida resultados
+```
+
+Por padrão, o módulo usa os tamanhos 100, 1.000 e 10.000, cinco repetições e a semente `20261024`. A execução pode levar alguns minutos.
+
+Para alterar as repetições ou a semente:
+
+```powershell
+py -m src.services.experimentos --saida resultados --repeticoes 3 --semente 20261024
+```
+
+A pasta definida em `--saida` recebe:
+
+| Arquivo | Conteúdo |
+| --- | --- |
+| `validacao.json` | Resultado dos testes de regressão. |
+| `resultados_brutos.csv` | Medições de cada repetição e cenário. |
+| `buscas_detalhadas.csv` | Quantidade de nós visitados em cada busca. |
+| `resumo.csv` | Medianas consolidadas por cenário. |
+| `sequencias.json` | Sequências de inserção, busca e remoção. |
+| `metadados.json` | Semente, ambiente e parâmetros da execução. |
+
+Os cenários incluem inserções crescentes e aleatórias, buscas existentes e inexistentes e remoções de 10%, 30% e 50% dos registros.
 
 ## Equipe
 
