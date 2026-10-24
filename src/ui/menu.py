@@ -73,12 +73,12 @@ class MenuArvores:
     def abrir_avl(self) -> None:
         self.selecionar_arvore("AVL")
         janela_avl = tk.Toplevel(self.janela)
-        JanelaAVL(janela_avl, ArvoreAVL())
-
+        JanelaAVL(janela_avl, self.avl)
+        
     def abrir_rubro_negra(self) -> None:
         self.selecionar_arvore("Rubro-Negra")
         janela_rubro_negra = tk.Toplevel(self.janela)
-        JanelaRubroNegra(janela_rubro_negra, ArvoreRubroNegra())
+        JanelaRubroNegra(janela_rubro_negra, self.rubro_negra)
 
 
 def main() -> None:
