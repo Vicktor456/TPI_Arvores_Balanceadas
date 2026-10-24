@@ -720,6 +720,80 @@ class JanelaRubroNegra:
         for botao in self.botoes_operacao:
             botao.config(state=tk.NORMAL)
 
+    def mostrar_menor(self) -> None:
+        aluno = self.arvore.obter_menor()
+    
+        if aluno is None:
+            self.rotulo_resultado.config(text="A árvore está vazia.")
+            return
+    
+        texto = (
+            f"Menor matrícula: {aluno.matricula}\n"
+            f"Nome: {aluno.nome}\n"
+            f"Curso: {aluno.curso}\n"
+            f"Período: {aluno.periodo}"
+        )
+    
+        self.rotulo_resultado.config(
+            text=f"Menor matrícula encontrada: {aluno.matricula}."
+        )
+    
+        messagebox.showinfo(
+            "Aluno com menor matrícula",
+            texto,
+            parent=self.janela,
+        )
+
+    def mostrar_maior(self) -> None:
+        aluno = self.arvore.obter_maior()
+    
+        if aluno is None:
+            self.rotulo_resultado.config(text="A árvore está vazia.")
+            return
+    
+        texto = (
+            f"Maior matrícula: {aluno.matricula}\n"
+            f"Nome: {aluno.nome}\n"
+            f"Curso: {aluno.curso}\n"
+            f"Período: {aluno.periodo}"
+        )
+    
+        self.rotulo_resultado.config(
+            text=f"Maior matrícula encontrada: {aluno.matricula}."
+        )
+    
+        messagebox.showinfo(
+            "Aluno com maior matrícula",
+            texto,
+            parent=self.janela,
+        )
+
+    def mostrar_pre_ordem(self) -> None:
+        alunos = self.arvore.pre_ordem()
+        self._mostrar_caminhamento("Pré-ordem", alunos)
+
+    def mostrar_pos_ordem(self) -> None:
+        alunos = self.arvore.pos_ordem()
+        self._mostrar_caminhamento("Pós-ordem", alunos)
+
+    def _mostrar_caminhamento(self, titulo: str, alunos: list) -> None:
+        if not alunos:
+            self.rotulo_resultado.config(text="A árvore está vazia.")
+            return
+    
+        matriculas = " → ".join(
+            str(aluno.matricula) for aluno in alunos
+        )
+    
+        self.rotulo_resultado.config(
+            text=f"Caminhamento {titulo} exibido."
+        )
+    
+        messagebox.showinfo(
+            f"Caminhamento {titulo}",
+            matriculas,
+            parent=self.janela,
+        )
 
 def main() -> None:
     janela = tk.Tk()
