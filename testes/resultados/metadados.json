@@ -1,0 +1,30 @@
+{
+  "data_utc": "2026-10-24T20:06:28.141132+00:00",
+  "python": "3.13.7 (tags/v3.13.7:bcee1c3, Aug 14 2025, 14:15:11) [MSC v.1944 64 bit (AMD64)]",
+  "sistema": "Windows-11-10.0.26200-SP0",
+  "processador": "AMD64 Family 25 Model 80 Stepping 0, AuthenticAMD",
+  "commit_base": "2f5e17cabd2398f2347b061d1f33d101665c5c78",
+  "semente_base": 20261024,
+  "sementes_por_n": {
+    "insercao": "base+n",
+    "busca_existente": "base+n+1",
+    "busca_inexistente": "base+n+2",
+    "remocao": "base+n+3"
+  },
+  "repeticoes": 5,
+  "tamanhos": [
+    100,
+    1000,
+    10000
+  ],
+  "hashes_sha256": {
+    "trees/avl.py": "5121e9b749c759fc0b9fa981ada3964b7a52a9da8888e0c92384de6b9a94fce6",
+    "trees/rubro_negra.py": "b555f538bfbbb7c668d882dd22dabe1a251661a6a787de778df0e6407e7c42fc",
+    "models/aluno.py": "12b475908c4f26991caa4172e7b66ce28cce5a38658d9f347ac479a51abe7831"
+  },
+  "cronometro": "perf_counter_ns",
+  "nota": "As colunas de insercao/busca repetem-se nas tres linhas de percentuais; nao somar essas copias.",
+  "altura": "numero de nos no maior caminho: vazia=0, raiz=1",
+  "recoloracao": "mudanca efetiva de cor de no real; inclui tornar a raiz preta e transferencia de cor na remocao",
+  "rotacao": "cada rotacao simples conta 1; dupla conta 2"
+}

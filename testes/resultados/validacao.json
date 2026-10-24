@@ -1,0 +1,17 @@
+{
+  "status": "APROVADO",
+  "operacoes_mistas_verificadas": 20000,
+  "sementes": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+  ],
+  "observacao": "Inclui duplicadas, ausentes, minimo/maximo, caminhamentos, esvaziamento e quatro casos AVL."
+}
