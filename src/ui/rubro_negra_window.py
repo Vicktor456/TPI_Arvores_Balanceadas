@@ -813,6 +813,50 @@ class JanelaRubroNegra:
             parent=self.janela,
         )
 
+    def validar_arvore(self) -> None:
+        if self.animando:
+            return
+    
+        if self.arvore.validar_rubro_negra():
+            mensagem = "A árvore Rubro-Negra é válida."
+            self.rotulo_resultado.config(text=mensagem)
+    
+            messagebox.showinfo(
+                "Validação da Rubro-Negra",
+                mensagem,
+                parent=self.janela,
+            )
+        else:
+            mensagem = (
+                "A árvore Rubro-Negra possui erro de ordenação, "
+                "cor ou altura negra."
+            )
+            self.rotulo_resultado.config(text=mensagem)
+    
+            messagebox.showerror(
+                "Validação da Rubro-Negra",
+                mensagem,
+                parent=self.janela,
+            )
+
+    def mostrar_estatisticas(self) -> None:
+        if self.animando:
+            return
+    
+        texto = (
+            "Estatísticas da Árvore Rubro-Negra\n\n"
+            f"Quantidade de nós: {self.arvore.obter_quantidade_nos()}\n"
+            f"Altura atual: {self.arvore.obter_altura()}\n"
+            f"Rotações realizadas: {self.arvore.rotacoes}\n"
+            f"Recolorações realizadas: {self.arvore.recoloracoes}"
+        )
+    
+        messagebox.showinfo(
+            "Estatísticas da Rubro-Negra",
+            texto,
+            parent=self.janela,
+        )
+
 def main() -> None:
     janela = tk.Tk()
     JanelaRubroNegra(janela)
