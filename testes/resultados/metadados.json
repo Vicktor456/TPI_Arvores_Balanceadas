@@ -1,9 +1,33 @@
 {
-  "data_utc": "2026-10-24T20:06:28.141132+00:00",
-  "python": "3.13.7 (tags/v3.13.7:bcee1c3, Aug 14 2025, 14:15:11) [MSC v.1944 64 bit (AMD64)]",
-  "sistema": "Windows-11-10.0.26200-SP0",
-  "processador": "AMD64 Family 25 Model 80 Stepping 0, AuthenticAMD",
+  "data_utc": "2026-10-24T22:00:36.398400+00:00",
+  "python": "3.14.7 (tags/v3.14.7:823f032, Aug  5 2026, 10:51:32) [MSC v.1944 64 bit (AMD64)]",
+  "sistema": "Windows-11-10.0.26300-SP0",
+  "processador": "Intel64 Family 6 Model 151 Stepping 2, GenuineIntel",
   "commit_base": "2f5e17cabd2398f2347b061d1f33d101665c5c78",
+  "commit_execucao": "feaf13d95eb6932d2a0e47620c6f72c530f79af0",
+  "arquivo_experimento_sha256": "fc4e681668655d09393998ecf7d135f49ca6ed36946be584ad26994b29435949",
+  "comando_argv": [
+    "C:\\Users\\daviv\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+    "-m",
+    "src.services.experimentos",
+    "--saida",
+    "testes/resultados"
+  ],
+  "parametros_efetivos": {
+    "saida": "C:\\Users\\daviv\\Documentos\\MeusProjetosGH\\TPI_Arvores_Balanceadas\\testes\\resultados",
+    "repeticoes": 5,
+    "semente_base": 20261024,
+    "tamanhos": [
+      100,
+      1000,
+      10000
+    ],
+    "percentuais_remocao": [
+      10,
+      30,
+      50
+    ]
+  },
   "semente_base": 20261024,
   "sementes_por_n": {
     "insercao": "base+n",
@@ -18,13 +42,16 @@
     10000
   ],
   "hashes_sha256": {
-    "trees/avl.py": "5121e9b749c759fc0b9fa981ada3964b7a52a9da8888e0c92384de6b9a94fce6",
-    "trees/rubro_negra.py": "b555f538bfbbb7c668d882dd22dabe1a251661a6a787de778df0e6407e7c42fc",
-    "models/aluno.py": "12b475908c4f26991caa4172e7b66ce28cce5a38658d9f347ac479a51abe7831"
+    "trees/avl.py": "1e62f0ecac22f4e5fb68c3fd75d0c84f8b227ff6e9a5fb4a29bed8bf5d42dba1",
+    "trees/rubro_negra.py": "fc228159da83ec032bd3ca8722dc4110dea328d68e156c60c0b93daac5ed185f",
+    "models/aluno.py": "3cd8e44072f41e470556ccbe372da6406df327381441bf0039d19f498f936cd3"
   },
   "cronometro": "perf_counter_ns",
   "nota": "As colunas de insercao/busca repetem-se nas tres linhas de percentuais; nao somar essas copias.",
+  "contagem_visitas": "percurso instrumentado fora do cronometro; resultado conferido com buscar; conta nos reais e exclui NIL/None",
+  "remocao": "somente chaves existentes; cada percentual usa uma arvore reconstruida antes da medicao",
   "altura": "numero de nos no maior caminho: vazia=0, raiz=1",
   "recoloracao": "mudanca efetiva de cor de no real; inclui tornar a raiz preta e transferencia de cor na remocao",
-  "rotacao": "cada rotacao simples conta 1; dupla conta 2"
+  "rotacao": "cada rotacao simples conta 1; dupla conta 2",
+  "commit_execucao_observacao": "Commit HEAD identificado após a execução; seu horário de commit antecede o horário registrado dos resultados. O SHA-256 do módulo registra a versão exata do script executado."
 }
