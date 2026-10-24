@@ -76,6 +76,39 @@ class JanelaAVL:
             row=1, column=0, columnspan=4, sticky=tk.W, pady=(10, 0)
         )
 
+        acoes_extras = ttk.Frame(operacoes)
+        acoes_extras.grid(
+            row=2, column=0, columnspan=4, sticky=tk.W, pady=(10, 0)
+        )
+        
+        self.botao_menor = ttk.Button(
+            acoes_extras,
+            text="Menor matrícula",
+            command=self.mostrar_menor,
+        )
+        self.botao_menor.pack(side=tk.LEFT, padx=(0, 6))
+        
+        self.botao_maior = ttk.Button(
+            acoes_extras,
+            text="Maior matrícula",
+            command=self.mostrar_maior,
+        )
+        self.botao_maior.pack(side=tk.LEFT, padx=6)
+        
+        self.botao_pre_ordem = ttk.Button(
+            acoes_extras,
+            text="Pré-ordem",
+            command=self.mostrar_pre_ordem,
+        )
+        self.botao_pre_ordem.pack(side=tk.LEFT, padx=6)
+        
+        self.botao_pos_ordem = ttk.Button(
+            acoes_extras,
+            text="Pós-ordem",
+            command=self.mostrar_pos_ordem,
+        )
+        self.botao_pos_ordem.pack(side=tk.LEFT, padx=6)
+
         lista = ttk.LabelFrame(painel_operacoes, text="Alunos em ordem de matrícula", padding=8)
         lista.pack(fill=tk.BOTH, expand=True)
 
