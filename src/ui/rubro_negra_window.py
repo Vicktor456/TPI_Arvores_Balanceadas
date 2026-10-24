@@ -165,6 +165,8 @@ class JanelaRubroNegra:
             self.botao_maior,
             self.botao_pre_ordem,
             self.botao_pos_ordem,
+            self.botao_validar,
+            self.botao_estatisticas,
         )
 
         painel_arvore.columnconfigure(0, weight=1)
