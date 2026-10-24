@@ -9,7 +9,8 @@ from tkinter import messagebox, ttk
 if __package__ in (None, ""):
     sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
-from src.trees.avl import Aluno, ArvoreAVL
+from src.models.aluno import Aluno
+from src.trees.avl import ArvoreAVL
 
 
 class JanelaAVL:
