@@ -141,8 +141,11 @@ class JanelaAVL:
             self.botao_buscar,
             self.botao_remover,
             self.botao_atualizar,
+            self.botao_menor,
+            self.botao_maior,
+            self.botao_pre_ordem,
+            self.botao_pos_ordem,
         )
-
         painel_arvore.columnconfigure(0, weight=1)
         painel_arvore.rowconfigure(1, weight=1)
         self.rotulo_visualizacao = ttk.Label(
